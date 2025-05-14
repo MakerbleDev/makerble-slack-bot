@@ -7,12 +7,18 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o my-go-app .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o my-go-app .
 
 FROM alpine:latest
+
+RUN apk add --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && \
+    echo "Asia/Kolkata" > /etc/timezone
 
 WORKDIR /root/
 
 COPY --from=builder /app/my-go-app .
 
-CMD ["./my-go-app"]
+RUN chmod +x /root/my-go-app
+
+CMD ["/root/my-go-app"]
