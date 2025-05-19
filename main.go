@@ -48,7 +48,7 @@ func main() {
 	r.Use(gin.Recovery())
 	r.POST("/events", handleSlackEvents)
 	logger.Log.Info("Server running on port 3000")
-	_ = r.Run(":3000")
+	_ = r.Run("0.0.0.0:3000")
 }
 
 // Tests Slack bot authorization
