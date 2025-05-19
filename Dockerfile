@@ -21,4 +21,6 @@ COPY --from=builder /app/my-go-app .
 
 RUN chmod +x /root/my-go-app
 
+EXPOSE 3000
+
 CMD ["/root/my-go-app"]
