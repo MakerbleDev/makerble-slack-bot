@@ -20,7 +20,7 @@ func handleSlackEvents(ctx *gin.Context) {
 	}
 
 	if payload["type"] == "url_verification" {
-		ctx.JSON(http.StatusOK, gin.H{"challenge": payload["challenge"]})
+		ctx.String(http.StatusOK, payload["challenge"].(string))
 		return
 	}
 
