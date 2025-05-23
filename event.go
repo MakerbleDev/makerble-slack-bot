@@ -14,12 +14,14 @@ import (
 func handleSlackEvents(ctx *gin.Context) {
 	var payload map[string]interface{}
 	body, _ := io.ReadAll(ctx.Request.Body)
-	if err := json.Unmarshal(body, &payload); err != nil {
+	if err := ctx.BindJSON(&payload); err != nil {
 		ctx.Status(http.StatusBadRequest)
 		return
 	}
 
+
 	if payload["type"] == "url_verification" {
+		fmt.Println("Incoming Slack verification:", payload)
 		ctx.String(http.StatusOK, payload["challenge"].(string))
 		return
 	}
