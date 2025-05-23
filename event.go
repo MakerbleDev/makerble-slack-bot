@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-
+	"log"
 	"github.com/gin-gonic/gin"
 	"github.com/slack-go/slack"
 )
